@@ -2,8 +2,12 @@
 from discord.ext import commands
 import discord
 import typing
+from dotenv import load_dotenv
+import os
 
-bot = commands.Bot(command_prefix='!', intents=discord.Intents.default())
+
+load_dotenv()
+
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -11,14 +15,12 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         print(f'Message from {message.author}: {message.content}')
-    
-@bot.tree.command(name= "bateau")
-async def réponse_bateau(self, ctx: commands.Context):
-    print("test je te baise")
+
 
 
 intents = discord.Intents.default()
 intents.message_content = True
 
+
 client = MyClient(intents=intents)
-client.run("")
+client.run(os.getenv("discord_token"))
